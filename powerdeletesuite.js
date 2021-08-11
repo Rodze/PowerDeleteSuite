@@ -1,3 +1,4 @@
+const delay = ms => new Promise( r => setTimeout(r, ms));
 var pd = {
   version: '1.4.8',
   bookmarkver: '1.4',
@@ -394,14 +395,12 @@ var pd = {
       handleGroup: function () {
         pd.ui.updateDisplay();
         if (pd.task.items.length > 0) {
-						setTimeout(function(){
-          	pd.actions.children.handleSingle();
-	  			},6000);
+         	pd.actions.children.handleSingle();
         } else {
           pd.actions.page.next();
         }
       },
-      handleSingle: function () {
+      handleSingle: async function () {
         pd.ui.updateDisplay();
         var item = pd.task.items[0],
           shouldBeActedOn = pd.helpers.shouldBeActedOn(item),
@@ -415,6 +414,7 @@ var pd = {
           pd.actions.page.next();
         } else if (shouldBeActedOn) {
           if (!item.pdEdited && ((item.data.is_self || item.kind == 't1') && pd.task.config.isEditing)) {
+            await delay(6000);
             pd.actions.edit(item);
           } else if (!item.pdDeleted && ((item.kind == 't3' && pd.task.config.isRemovingPosts) || (item.kind == 't1' && pd.task.config.isRemovingComments))) {
             pd.actions.delete(item);
