@@ -394,7 +394,9 @@ var pd = {
       handleGroup: function () {
         pd.ui.updateDisplay();
         if (pd.task.items.length > 0) {
-          pd.actions.children.handleSingle();
+						setTimeout(function(){
+          	pd.actions.children.handleSingle();
+	  			},6000);
         } else {
           pd.actions.page.next();
         }
