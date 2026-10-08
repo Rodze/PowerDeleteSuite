@@ -417,7 +417,8 @@ var pd = {
             await delay(10000);
             pd.actions.edit(item);
           } else if (!item.pdDeleted && ((item.kind == 't3' && pd.task.config.isRemovingPosts) || (item.kind == 't1' && pd.task.config.isRemovingComments))) {
-            pd.actions.delete(item);
+            await delay(10000);
+			pd.actions.delete(item);
           } else {
             pd.actions.children.finishItem();
             pd.actions.children.handleGroup();
